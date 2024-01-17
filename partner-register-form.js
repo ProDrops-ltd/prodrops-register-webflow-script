@@ -2,7 +2,7 @@ function initializeForm() {
   // Multistep form logic
   // Dev API: https://909c-89-205-135-183.ngrok-free.app/v1
   // Preview API: https://prodrops-api-production.up.railway.app/v1
-  const nitzAPI = "https://e14b-192-115-72-58.ngrok-free.app/v1";
+  const PD_REGISTER_API = "https://prodrops-dev.up.railway.app/v1";
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
   const warningModal1 = document.querySelector("[data-form-warning-1]");
@@ -15,7 +15,7 @@ function initializeForm() {
     "#w-node-_76620bad-c458-8fe3-a573-c69475ba2721-4a77bf3e"
   );
   const submitButton = document.querySelector("#partner-form-submit");
-  const api = nitzAPI;
+  const api = PD_REGISTER_API;
   const successModal = document.querySelector("#form-success-wrapper");
   let isSubmitting = false;
   var minAge13 = ["US"];
