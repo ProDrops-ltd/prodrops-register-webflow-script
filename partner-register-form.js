@@ -12,7 +12,7 @@ function initializeForm() {
   const form2 = document.querySelector("#registrationFormStep2");
   const form3 = document.querySelector("#registrationFormStep3");
   const errorText = document.querySelector(
-    "#w-node-_76620bad-c458-8fe3-a573-c69475ba2721-4a77bf3e"
+    "#registrationFormStep3Wrapper .input-error"
   );
   const submitButton = document.querySelector("#partner-form-submit");
   const api = PD_REGISTER_API;
