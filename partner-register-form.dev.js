@@ -1,5 +1,5 @@
 function initializeForm() {
-  const PD_REGISTER_API = "https://prodrops-dev.up.railway.app";
+  const PD_REGISTER_API = "https://prodrops-dev-e308.up.railway.app";
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
   const warningModal1 = document.querySelector("[data-form-warning-1]");
