@@ -12,7 +12,7 @@ function initializeForm() {
     "#registrationFormStep3Wrapper .input-error"
   );
   const submitButton = document.querySelector("#partner-form-submit");
-  const api = PD_REGISTER_API;
+  const api = PD_REGISTER_API + "/v1";
   const successModal = document.querySelector("#form-success-wrapper");
   let isSubmitting = false;
   var minAge13 = ["US"];
