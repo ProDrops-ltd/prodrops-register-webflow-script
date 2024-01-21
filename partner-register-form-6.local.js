@@ -184,16 +184,10 @@ function initializeForm() {
         maxlength: 20,
         pattern: /^[\u0000-\u0019\u0021-\uFFFF]+$/,
         remote: {
-          url: api + `/validations/username`,
-          type: "POST",
+          url: api + `/validations/username/${$("input[name=username]").val()}`,
+          type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
-          },
-          dataType: "json",
-          data: {
-            username: function () {
-              return $("input[name=username]").val();
-            },
           },
           dataFilter: function (data) {
             return JSON.parse(data).valid;
@@ -204,16 +198,10 @@ function initializeForm() {
         required: true,
         email: true,
         remote: {
-          url: api + `/validations/email`,
-          type: "POST",
+          url: api + `/validations/email/${$("input[name=email]").val()}`,
+          type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
-          },
-          dataType: "json",
-          data: {
-            username: function () {
-              return $("input[name=email]").val();
-            },
           },
           dataFilter: function (data) {
             return JSON.parse(data).valid;
@@ -345,7 +333,7 @@ function initializeForm() {
         return;
       }
       isSubmitting = true;
-      const res = await fetch(api + "/auth/register/partners", {
+      const res = await fetch(api + "/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
