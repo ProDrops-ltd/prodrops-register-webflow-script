@@ -189,6 +189,7 @@ function initializeForm() {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
+          dataType: "json",
           data: {
             username: function () {
               return $("input[name=username]").val();
@@ -208,6 +209,7 @@ function initializeForm() {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
+          dataType: "json",
           data: {
             username: function () {
               return $("input[name=email]").val();
