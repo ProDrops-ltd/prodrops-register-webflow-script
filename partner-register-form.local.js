@@ -1,5 +1,5 @@
 function initializeForm() {
-  const PD_REGISTER_API = "https://87dc-192-115-72-58.ngrok-free.app";
+  const PD_REGISTER_API = "https://87dc-192-115-72-58.ngrok-free.app/register";
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
   const warningModal1 = document.querySelector("[data-form-warning-1]");
@@ -12,7 +12,7 @@ function initializeForm() {
     "#registrationFormStep3Wrapper .input-error"
   );
   const submitButton = document.querySelector("#partner-form-submit");
-  const api = PD_REGISTER_API + "/v1";
+  const api = PD_REGISTER_API;
   const successModal = document.querySelector("#form-success-wrapper");
   let isSubmitting = false;
   var minAge13 = ["US"];
