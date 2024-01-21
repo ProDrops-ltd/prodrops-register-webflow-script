@@ -184,10 +184,15 @@ function initializeForm() {
         maxlength: 20,
         pattern: /^[\u0000-\u0019\u0021-\uFFFF]+$/,
         remote: {
-          url: api + `/validations/username/${$("input[name=username]").val()}`,
-          type: "GET",
+          url: api + `/validations/username`,
+          type: "POST",
           headers: {
             "ngrok-skip-browser-warning": "true",
+          },
+          data: {
+            username: function () {
+              return $("input[name=username]").val();
+            },
           },
           dataFilter: function (data) {
             return JSON.parse(data).valid;
@@ -198,10 +203,15 @@ function initializeForm() {
         required: true,
         email: true,
         remote: {
-          url: api + `/validations/email/${$("input[name=email]").val()}`,
-          type: "GET",
+          url: api + `/validations/email`,
+          type: "POST",
           headers: {
             "ngrok-skip-browser-warning": "true",
+          },
+          data: {
+            username: function () {
+              return $("input[name=email]").val();
+            },
           },
           dataFilter: function (data) {
             return JSON.parse(data).valid;
