@@ -463,15 +463,13 @@ function initializeForm() {
       return;
     }
     if (code) {
-      const res = await fetch(
-        api + `/oauth/${provider}/token/${encodeURIComponent(code)}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await fetch(api + `/oauth/${provider}/token}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code }),
+      });
       const data = await res.json();
       if (!res.ok || !data.token) {
         throw Error("Could not get access token from code");
