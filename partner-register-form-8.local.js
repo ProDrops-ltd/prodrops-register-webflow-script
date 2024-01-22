@@ -189,7 +189,7 @@ function initializeForm() {
         pattern: /^[a-zA-Z0-9]*$/,
         remote: {
           url: api + `/validations/username`,
-          type: "POST",
+          type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
@@ -209,7 +209,7 @@ function initializeForm() {
         email: true,
         remote: {
           url: api + `/validations/email`,
-          type: "POST",
+          type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
