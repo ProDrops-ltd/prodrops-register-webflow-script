@@ -1,5 +1,6 @@
 function initializeForm() {
-  const api = "https://87dc-192-115-72-58.ngrok-free.app/register";
+  const api =
+    "https://f9d5-192-115-72-58.ngrok-free.app/api/v1/partner/register";
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
   const warningModal1 = document.querySelector("[data-form-warning-1]");
