@@ -8,6 +8,7 @@ function initializeForm() {
   const form1 = document.querySelector("#registrationFormStep1");
   const form2 = document.querySelector("#registrationFormStep2");
   const form3 = document.querySelector("#registrationFormStep3");
+  const signupWrapper = document.querySelector(".signup-wrapper");
   const errorText = document.querySelector(
     "#registrationFormStep3Wrapper .input-error"
   );
