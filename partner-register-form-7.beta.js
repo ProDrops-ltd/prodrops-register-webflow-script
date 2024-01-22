@@ -1,5 +1,5 @@
 function initializeForm() {
-  const api = "https://87dc-192-115-72-58.ngrok-free.app/register";
+  const api = "https://beta.api.prodrops.gg/api/v1/partner/register";
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
   const warningModal1 = document.querySelector("[data-form-warning-1]");
