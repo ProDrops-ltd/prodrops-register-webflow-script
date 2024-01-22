@@ -463,7 +463,7 @@ function initializeForm() {
       return;
     }
     if (code) {
-      const res = await fetch(api + `/oauth/${provider}/token}`, {
+      const res = await fetch(api + `/oauth/${provider}/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
