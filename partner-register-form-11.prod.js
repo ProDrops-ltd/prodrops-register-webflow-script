@@ -207,7 +207,7 @@ function initializeForm() {
       },
       email: {
         required: true,
-        email: true,
+        pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/,
         remote: {
           url: api + `/validations/email`,
           type: "GET",
@@ -223,6 +223,9 @@ function initializeForm() {
           dataFilter: function (data) {
             return JSON.parse(data).valid;
           },
+        },
+        messages: {
+          pattern: "Please enter a valid email address.",
         },
       },
       password: {
