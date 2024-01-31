@@ -1,5 +1,5 @@
 function initializeForm() {
-  const PD_REGISTER_API = "https://87dc-192-115-72-58.ngrok-free.app/register";
+  const api = "https://api.prodrops.gg/api/v1/partner/register";
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
   const warningModal1 = document.querySelector("[data-form-warning-1]");
@@ -8,11 +8,11 @@ function initializeForm() {
   const form1 = document.querySelector("#registrationFormStep1");
   const form2 = document.querySelector("#registrationFormStep2");
   const form3 = document.querySelector("#registrationFormStep3");
+  const signupWrapper = document.querySelector(".signup-wrapper");
   const errorText = document.querySelector(
     "#registrationFormStep3Wrapper .input-error"
   );
   const submitButton = document.querySelector("#partner-form-submit");
-  const api = PD_REGISTER_API;
   const successModal = document.querySelector("#form-success-wrapper");
   let isSubmitting = false;
   var minAge13 = ["US"];
@@ -151,7 +151,12 @@ function initializeForm() {
       error.appendTo(element.closest(".input-wrapper"));
     },
     submitHandler: function (form, e) {
-      if ($(form).valid()) {
+      if (
+        document.querySelector("input[name=games][data-value=Other]").checked &&
+        document.querySelectorAll("input[name=games]:checked").length === 1
+      ) {
+        warningModal1.style.display = "flex";
+      } else if ($(form).valid()) {
         nextStep();
       }
     },
@@ -161,12 +166,12 @@ function initializeForm() {
       firstName: {
         minlength: 3,
         maxlength: 20,
-        pattern: /^[\u0000-\u0019\u0021-\uFFFF\s]+$/,
+        pattern: /^[a-zA-Z ]*$/,
       },
       lastName: {
         minlength: 3,
         maxlength: 20,
-        pattern: /^[\u0000-\u0019\u0021-\uFFFF\s]+$/,
+        pattern: /^[a-zA-Z ]*$/,
       },
       dateOfBirth: {
         minAge:
@@ -182,10 +187,10 @@ function initializeForm() {
         required: true,
         minlength: 4,
         maxlength: 20,
-        pattern: /^[\u0000-\u0019\u0021-\uFFFF]+$/,
+        pattern: /^[a-zA-Z0-9]*$/,
         remote: {
           url: api + `/validations/username`,
-          type: "POST",
+          type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
@@ -205,13 +210,13 @@ function initializeForm() {
         email: true,
         remote: {
           url: api + `/validations/email`,
-          type: "POST",
+          type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
           dataType: "json",
           data: {
-            username: function () {
+            email: function () {
               return $("input[name=email]").val();
             },
           },
@@ -242,7 +247,14 @@ function initializeForm() {
       }
     },
     messages: {
+      firstName: {
+        pattern: "Only letters allowed",
+      },
+      lastName: {
+        pattern: "Only letters allowed",
+      },
       username: {
+        pattern: "Only letters and numbers are allowed",
         remote: "This username is not available",
       },
       email: {
@@ -335,7 +347,9 @@ function initializeForm() {
         }
       }
       if (f3.get("tos") !== "on" || f3.get("partnersTos") !== "on") {
-        throw Error("Please check the last two checkboxes");
+        throw Error(
+          "You must accept all agreements in order to become a partner"
+        );
       }
       const selectedGames = [];
       document.querySelectorAll("input[name=games]:checked").forEach((e) => {
@@ -345,6 +359,7 @@ function initializeForm() {
         return;
       }
       isSubmitting = true;
+      signupWrapper.classList.add("disabled");
       const res = await fetch(api + "/", {
         method: "POST",
         headers: {
@@ -387,6 +402,7 @@ function initializeForm() {
     } finally {
       isSubmitting = false;
       submitButton.innerHTML = submitButtonDefaultText;
+      signupWrapper.classList.remove("disabled");
     }
   }
   document.querySelector("#ok-success-button").addEventListener("click", () => {
@@ -447,15 +463,13 @@ function initializeForm() {
       return;
     }
     if (code) {
-      const res = await fetch(
-        api + `/oauth/${provider}/token/${encodeURIComponent(code)}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await fetch(api + `/oauth/${provider}/token`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code }),
+      });
       const data = await res.json();
       if (!res.ok || !data.token) {
         throw Error("Could not get access token from code");
@@ -494,6 +508,7 @@ function initializeForm() {
         statusText.style.color = "#ebebeb";
         connectButton.innerHTML = "Connect";
         connectButton.style.color = "#a352ff";
+        button.classList.remove("active");
       } else {
         const authJsonToken = JSON.parse(oauthToken);
         const { token, expires_at } = authJsonToken;
@@ -505,6 +520,7 @@ function initializeForm() {
         statusText.style.color = "var(--primary-1)";
         connectButton.innerHTML = "Disconnect";
         connectButton.style.color = "#EBEBEB";
+        button.classList.add("active");
       }
       if (["twitch", "youtube"].includes(e)) {
         errorText.innerHTML = "";
