@@ -224,9 +224,6 @@ function initializeForm() {
             return JSON.parse(data).valid;
           },
         },
-        messages: {
-          pattern: "Please enter a valid email address.",
-        },
       },
       password: {
         required: true,
@@ -262,6 +259,7 @@ function initializeForm() {
       },
       email: {
         remote: "This email is already in use",
+        pattern: "Please enter a valid email address.",
       },
     },
   });
