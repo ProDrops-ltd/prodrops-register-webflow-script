@@ -6,8 +6,9 @@ function initializeForm() {
     throw Error("API URL is not defined");
   }
 
-  const getApiUrl = () =>
+  window.__PARTNER_REGISTER_URL__ =
     window.__PD_API_BASE_URL__ + "/api/v1/partner/register";
+  const getApiUrl = () => window.__PARTNER_REGISTER_URL__;
 
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
