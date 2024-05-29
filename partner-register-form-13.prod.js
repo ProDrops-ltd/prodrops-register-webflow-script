@@ -1,7 +1,12 @@
 function initializeForm() {
-  if (!api || typeof api !== "string") {
+
+  const baseUrl = window.__PD_API_BASE_URL__
+  
+  if (!baseUrl || typeof baseUrl !== "string") {
     throw Error("API URL is not defined");
   }
+
+  const api = baseUrl + '/api/v1/partner/register'
 
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
