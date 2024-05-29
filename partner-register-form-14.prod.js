@@ -1,12 +1,13 @@
 function initializeForm() {
-
-  const baseUrl = window.__PD_API_BASE_URL__
-  
-  if (!baseUrl || typeof baseUrl !== "string") {
+  if (
+    !window.__PD_API_BASE_URL__ ||
+    typeof window.__PD_API_BASE_URL__ !== "string"
+  ) {
     throw Error("API URL is not defined");
   }
 
-  const api = baseUrl + '/api/v1/partner/register'
+  const getApiUrl = () =>
+    window.__PD_API_BASE_URL__ + "/api/v1/partner/register";
 
   let currentStep = 1;
   const typeInput = document.querySelector("select[name=type]");
@@ -197,7 +198,7 @@ function initializeForm() {
         maxlength: 20,
         pattern: /^[a-zA-Z0-9]*$/,
         remote: {
-          url: api + `/validations/username`,
+          url: getApiUrl() + `/validations/username`,
           type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
@@ -217,7 +218,7 @@ function initializeForm() {
         required: true,
         pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/,
         remote: {
-          url: api + `/validations/email`,
+          url: getApiUrl() + `/validations/email`,
           type: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
@@ -369,7 +370,7 @@ function initializeForm() {
       }
       isSubmitting = true;
       signupWrapper.classList.add("disabled");
-      const res = await fetch(api + "/", {
+      const res = await fetch(getApiUrl() + "/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -447,7 +448,7 @@ function initializeForm() {
         bc.onmessage = null;
       };
       window.open(
-        api + `/oauth/${provider}/${csrfState}`,
+        getApiUrl() + `/oauth/${provider}/${csrfState}`,
         "popup",
         "popup=true,toolbar=false,menubar=false"
       );
@@ -472,7 +473,7 @@ function initializeForm() {
       return;
     }
     if (code) {
-      const res = await fetch(api + `/oauth/${provider}/token`, {
+      const res = await fetch(getApiUrl() + `/oauth/${provider}/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
