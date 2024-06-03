@@ -7,7 +7,8 @@ function initializeForm() {
   }
 
   window.__PARTNER_REGISTER_URL__ =
-    "https://9179-77-126-0-98.ngrok-free.app" + "/api/v1/partner/register";
+    "https://beta.prodrops.gg" + "/api/v1/partner/register";
+
   const getApiUrl = () => window.__PARTNER_REGISTER_URL__;
 
   let currentStep = 1;
