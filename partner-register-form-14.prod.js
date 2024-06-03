@@ -7,7 +7,7 @@ function initializeForm() {
   }
 
   window.__PARTNER_REGISTER_URL__ =
-    "https://beta.prodrops.gg" + "/api/v1/partner/register";
+    "https://beta.api.prodrops.gg" + "/api/v1/partner/register";
 
   const getApiUrl = () => window.__PARTNER_REGISTER_URL__;
 
